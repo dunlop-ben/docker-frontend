@@ -9,3 +9,16 @@ before_install:
 
 script:
   - docker run -e CI=true bmd/frontend-dev npm run test
+
+deploy:
+  provider: elasticbeanstalk
+  region: "us-east-2"
+  app: "docker-frontend"
+  env: "DockerFrontend-env"
+  bucket_name: "elasticbeanstalk-us-east-2-897017855132"
+  bucket_path: "docker-frontend"
+  # Run deploy job only on master branch
+  on:
+    branch: master
+  access_key_id: "$AWS_ACCESS_KEY"
+  secret_access_key: "$AWS_SECRET_KEY"
