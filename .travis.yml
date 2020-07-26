@@ -1,0 +1,11 @@
+# Super user permissions required for Docker use
+sudo: required
+services:
+  # Install a copy of Docker
+  - docker
+
+before_install:
+  - docker build -f Dockerfile.dev -t bmd/frontend-dev .
+
+script:
+  - docker run -e CI=true bmd/frontend-dev npm run test
